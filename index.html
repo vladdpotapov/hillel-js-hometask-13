@@ -4,11 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Human/Company/Car</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+    <section class="main">
+        <div class="buttons">
+            <div class="buttons-show">
+                <input type="button" class="button" id="button-show-users" value="Show Users">
+                <input type="button" class="button" id="button-show-companies" value="Show Companies">
+            </div>
+            <div class="buttons-add hidden" id="buttons-add">
+                <input type="button" class="button" id="button-add-users" value="Add User">
+                <input type="button" class="button" id="button-add-companies" value="Add Company">
+            </div> 
+        </div>
+        <div class="table-wrap" id="table-wrap">
+            <table class="table" id="table"></table>
+        </div>
+        <div id="info-window"></div>
+    </section>
+
     <script src="js/functions.js"></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 </body>
-</html>
+</html>     

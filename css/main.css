@@ -1,0 +1,86 @@
+/* GENERAL */
+body {
+    background-color: #181818;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* BUTTONS */
+.button {
+    width: 170px;
+    height: 25px;
+    padding: 2px 5px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    color: #ffffff;
+    background-color: #7e0101;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    color: #ffffff;
+    background-color: #a30000;
+}
+
+.service-button {
+    background-color: #b66100;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+/* TABLE */
+.table {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    background-color: #cecece;
+}
+
+.table__heading {
+    background-color: #cecece;
+    border: 1px solid #000000;
+}
+
+.table__heading-cell {
+    background-color: #cecece;
+    border: 1px solid #000000;
+}
+
+.table__row {
+    background-color: #858585;
+}
+
+.table__cell {
+    padding: 2px 5px;
+    background-color: #cecece;
+    border: 1px solid #000000;
+}
+
+/* VALIDATION */
+.incorrect {
+    border: 2px solid #ff0000;
+}
+
+/* CONFIRM BOX */
+.confirm-box {
+    text-align: center;
+    padding: 10px;
+    max-width: 376px;
+    justify-content: center;
+    background-color: #e5ffd4;
+}
+
+.confirm-box__cell {
+    padding: 10px;
+}
