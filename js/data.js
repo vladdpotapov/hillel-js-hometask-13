@@ -1,15 +1,15 @@
 'use strict';
 
 const users = [
-    new Human(1, 'John', 30, 'developer', '000-000-00-00', 10000),
-    new Human(2, 'Kate', 25, 'dancer', '000-111-11-11', 8000),
-    new Human(3, 'Jill', 23, 'painter', '000-111-11-11', 7500),
+    new Human(1, 'John', 30, 'developer', '000-000-00-00', 10000, null),
+    new Human(2, 'Kate', 25, 'dancer', '000-111-11-11', 8000, null),
+    new Human(3, 'Jill', 23, 'painter', '000-111-11-11', 7500, null),
 ];
 
 const companies = [
-    new Company(1, 'Alpha', 150, 'development', '063-555-66-44', 160000),
-    new Company(2, 'GreenTrees', 100, 'plants', '063-555-66-44', 70000),
-    new Company(3, 'Foxxx', 80, 'PC Parts', '063-555-66-44', 35000),
+    new Company(1, 'Alpha', 150, 'development', '063-555-66-44', 160000, null),
+    new Company(2, 'GreenTrees', 100, 'plants', '063-555-66-44', 70000, null),
+    new Company(3, 'Foxxx', 80, 'PC Parts', '063-555-66-44', 35000, null),
 ];
 
 const cars = [

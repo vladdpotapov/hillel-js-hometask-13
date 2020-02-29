@@ -29,7 +29,7 @@ function Car(carId, carBrand, carModel, carAge, carPower, carPrice) {
 }
 
 // MAIN FUNCTIONS:
-function createTable(array) {
+function createTable(array) {               // showCars - 'user'
     for (let i = 0; i < array.length; i++) {
         let row = createTableElement('tr', 'table__row');
         let cellId = createTableElement('td', 'table__cell');
@@ -55,6 +55,7 @@ function createTable(array) {
         buttonView.addEventListener('click', () => showInfo(i, array));
         buttonEdit.addEventListener('click', () => editInfo(i, array));
         buttonDelete.addEventListener('click', () => confirm(i, array));
+        buttonBuy.addEventListener('click', () => showCars(i, cars, 'user'));
         buttonAddUser.addEventListener('click', () => addNewObject(i, array));
         buttonAddCompany.addEventListener('click', () => addNewObject(i, array));
     }
@@ -111,7 +112,7 @@ function editInfo(i, array) {               // saveToLocalStorage - Don't work
 
     buttonClose.addEventListener('click', () => closeWindow(table));
     buttonSave.addEventListener('click', () => {
-        rewriteInputValues(i, array);  
+        rewriteInputValues(i, array);
         let valid = validateInputs();
         if (valid) {
             console.log('Valid');
@@ -143,16 +144,16 @@ function addNewObject(i, array) {           // Needs optimization
             let cell = createTableElement('td', 'table__cell');
             let input = createInput('', classIdentifier);
             classIdentifier++;
-    
+
             setText(cell, `${key}: `);
-    
+
             appendElement(table, row);
             appendElement(row, cell);
             appendElement(row, input);
         }
 
-        buttonSave.addEventListener('click', () => {   
-            // rewriteInputValues(i, array);                    
+        buttonSave.addEventListener('click', () => {
+            // rewriteInputValues(i, array);
             let inputs = document.querySelectorAll('.inputs');
             let inputsValue = Object.values(array[i]);
 
@@ -160,7 +161,7 @@ function addNewObject(i, array) {           // Needs optimization
                 if (inputsValue[i] !== inputs[i].value) {
                 inputsValue[i] = inputs[i].value;
                 }
-            }  
+            }
 
             const objectKeys = {id: null, name: null, age: null, job: null, number: null, balance: null};
             Object.keys(objectKeys).forEach(function(key, index){
@@ -184,16 +185,16 @@ function addNewObject(i, array) {           // Needs optimization
             let cell = createTableElement('td', 'table__cell');
             let input = createInput('', classIdentifier);
             classIdentifier++;
-    
+
             setText(cell, `${key}: `);
-    
+
             appendElement(table, row);
             appendElement(row, cell);
             appendElement(row, input);
         }
 
-        buttonSave.addEventListener('click', () => {   
-            // rewriteInputValues(i, array); 
+        buttonSave.addEventListener('click', () => {
+            // rewriteInputValues(i, array);
             let inputs = document.querySelectorAll('.inputs');
             let inputsValue = Object.values(array[i]);
 
@@ -201,7 +202,7 @@ function addNewObject(i, array) {           // Needs optimization
                 if (inputsValue[i] !== inputs[i].value) {
                 inputsValue[i] = inputs[i].value;
                 }
-            }  
+            }
 
             const objectKeys = {id: null, name: null, age: null, job: null, number: null, balance: null};
             Object.keys(objectKeys).forEach(function(key, index){
@@ -219,7 +220,33 @@ function addNewObject(i, array) {           // Needs optimization
     }
 
     buttonClose.addEventListener('click', () => closeWindow(table));
-    
+
+}
+
+function showCars(buyerIndex, array, buyerType) {
+    clearContainer(table);
+
+    for (let i = 0; i < array.length; i++) {
+        let row = createTableElement('tr', 'table__row');
+        let cellId = createTableElement('td', 'table__cell');
+        let cellName = createTableElement('td', 'table__cell');
+        let cellActions = createTableElement('td', 'table__cell');
+        let buttonView = createButton('View');
+        let buttonBuy = createButton('Buy');
+
+        setText(cellId, array[i].id);
+        setText(cellName, array[i].brand);
+
+        appendElement(mainTable, row);
+        appendElement(row, cellId);
+        appendElement(row, cellName);
+        appendElement(row, cellActions);
+        appendElement(cellActions, buttonView);
+        appendElement(cellActions, buttonBuy);
+
+        buttonView.addEventListener('click', () => showInfo(i, array));
+        buttonBuy.addEventListener('click', () => confirmPurchase(i, array, buyerIndex, buyerType));
+    }
 }
 
 // ELEMENTS CREATION AND PLACEMENT:
@@ -262,7 +289,7 @@ function validateInputs() {
     let inputAge    = document.querySelector('.input3');
     let inputJob    = document.querySelector('.input4');
     let inputNumber = document.querySelector('.input5');
-    let inputBalance   = document.querySelector('.input6'); 
+    let inputBalance   = document.querySelector('.input6');
 
     let valid = true;
 
@@ -353,6 +380,50 @@ function confirm(i, array) {
     buttonNo.addEventListener('click', () => closeWindow(box));
 }
 
+function confirmPurchase(i, array, buyerIndex, buyerType) {
+
+    clearContainer(infoWindow);
+    let box = createTableElement('div', 'confirm-box');
+    let cell = createTableElement('div', 'confirm-box__cell');
+    let buttonYes = createButton('Purchase');
+    buttonYes.classList.add('service-button');
+    let buttonNo = createButton('Cancel');
+    buttonNo.classList.add('service-button');
+    setText(cell, 'Are You Sure?');
+
+    appendElement(infoWindow, box);
+    appendElement(box, cell);
+    appendElement(box, buttonYes);
+    appendElement(box, buttonNo);
+
+    buttonYes.addEventListener('click', () => {
+        checkBalance(i, array, buyerIndex, buyerType);
+    });
+    buttonNo.addEventListener('click', () => closeWindow(box));
+}
+
+function checkBalance(i, array, buyerIndex, buyerType) {
+    if (buyerType === 'user') {
+        if (users[buyerIndex].balance >= array[i].price) {
+            // users[buyerIndex].car = `${array[i].brand} ` + `${array[i].model}`;
+            // console.log(users[buyerIndex]);
+            console.log('purchased');
+        } else {
+            console.log('Not enough money');
+        }
+    } else if (buyerType === 'company') {   
+        if (companies[buyerIndex].balance >= array[i].price) {
+            // companies[buyerIndex].car = `${array[i].brand} ` + `${array[i].model}`;
+            // console.log(companies[buyerIndex]);
+            console.log('purchased');
+
+        } else {
+            console.log('Not enough money');
+        }
+    }
+    closeWindow(infoWindow);
+}
+
 function removeObject(i, array) {           // saveToLocalStorage - Don't work
     clearContainer(infoWindow);
 
@@ -370,13 +441,13 @@ function rewriteInputValues(i, array) {
             inputsValue[i] = inputs[i].value;
         }
     }
-    
+
     if (array === users) {
         const objectKeys = {id: null, name: null, age: null, job: null, number: null, balance: null};
         Object.keys(objectKeys).forEach(function(key, index){
             objectKeys[key] = inputsValue[index];
         });
-            
+
         array.splice([i], 1, objectKeys);
     }
 
@@ -385,7 +456,7 @@ function rewriteInputValues(i, array) {
         Object.keys(objectKeys).forEach(function(key, index){
             objectKeys[key] = inputsValue[index];
         });
-            
+
         array.splice([i], 1, objectKeys);
     }
 }
@@ -434,7 +505,7 @@ function getFromLocalStorage(array, keyName) {         // Don't work
     if (array === users) {
         array = dataArray;
     }
-    
+
     if (array === companies) {
         array = dataArray;
     }
